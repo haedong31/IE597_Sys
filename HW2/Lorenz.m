@@ -1,7 +1,6 @@
 function [t, states] = Lorenz(param, init, sim_time)
     init_vals = init;
     tspan = [0, sim_time];
-    
     [t, states] = ode45(@(t, states)compute_rates(t, states, param), tspan, init_vals);
 end
 

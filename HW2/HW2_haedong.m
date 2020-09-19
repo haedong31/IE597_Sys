@@ -3,12 +3,11 @@ clc
 close all
 clear variables
 
-lparam0 = [10, 28, 8/3];
+lparam0 = [10, 28, 0.5];
 linit = [0, 1, 1.05];
 [~, s1] = Lorenz(lparam0, linit, 50);
 
 scatter3(s1(:,1), s1(:,2), s1(:,3))
-title('Lorenz Attractor')
 xlabel('x'); ylabel('y'); zlabel('z')
 set(gca,'CameraPosition', [205.8004 -261.1243  213.1089])
 axis tight
@@ -18,13 +17,12 @@ clc
 close all
 clear variables
 
-rparam0 = [0.2, 0.2, 5.7];
+rparam0 = [0.2, 0.05, 1];
 rinit = [1, 1, 1];
 [~, s2] = Rosller(rparam0, rinit, 100);
 
 figure(2)
 scatter3(s2(:,1), s2(:,2), s2(:,3))
-title('Rosller Attractor')
 xlabel('x'); ylabel('y'); zlabel('z')
 axis tight
 
@@ -84,16 +82,16 @@ rinit = [1, 1, 1];
 x = s2(:,1);
 
 % tau is multiplier of time-step of ODE solver; approximate default is 0.01
-tau = 1;
+tau = 25;
 
 % size of dimension
 dim = 1:1:10;
 
 % rth nearest neighbor
-r = 2;
+r = 1;
 
 % FNN-criterion tolerance
-tol = 1;
+tol = 5;
 
 fnn_ratios = FNN(x, tau, dim, r, tol);
 plot(dim, fnn_ratios, '-o')

@@ -2,8 +2,9 @@
 /GaussianProcess-Tutorial-codes/
 
 # files
-*.pdf
+*.docx
 *.zip
+*.png
 **.DS_Store
 
 # Byte-compiled / optimized / DLL files
