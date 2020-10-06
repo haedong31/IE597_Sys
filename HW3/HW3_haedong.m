@@ -67,6 +67,8 @@ log_rads = log(rads);
 log_npts = log(npts);
 
 plot(log_rads, log_npts, '-o')
+ylabel('log(N)')
+xlabel('log(l)')
 
 %% Problem 3 - Recurrence plot of Lorenz attractor
 clc
@@ -88,14 +90,70 @@ for i=1:xlen
     end
 end
 
+% continuous version
 figure(1)
 imagesc(rec_mx);
 colormap hot;
 colorbar;
+xlabel('Data Index')
+ylabel('Data Index')
 axis image;
-
-xlabel('Time Index','FontSize',10,'FontWeight','bold');
-ylabel('Time Index','FontSize',10,'FontWeight','bold');
 get(gcf,'CurrentAxes');
 set(gca,'YDir','normal')
-set(gca,'LineWidth',2,'FontSize',10,'FontWeight','bold');
+
+% binary version
+epsilon = 5;
+bi_rec_mx = rec_mx <= epsilon;
+
+figure(2)
+imagesc(bi_rec_mx);
+colormap([[1 1 1]; [0 0 0]])
+xlabel('Data Index')
+ylabel('Data Index')
+axis image;
+get(gcf,'CurrentAxes');
+set(gca,'YDir','normal')
+
+save('RP.mat')
+
+%% Problem 4 - Recurrence quantification analysis
+clc
+close all
+clear variables
+
+load('RP.mat')
+
+RR = recur_rate(bi_rec_mx);
+DET = determinism(bi_rec_mx, 200);
+LMAX = linemax(bi_rec_mx);
+ENT = entropy(bi_rec_mx, 200);
+LAM = laminarity(bi_rec_mx, 100);
+TT = trap_time(bi_rec_mx, 100);
+
+%% Problem 5 - Space time separation
+clc
+close all
+clear variables
+
+lparam0 = [10, 28, 8/3];
+linit = [0, 1, 1.05];
+[t, s] = Lorenz(lparam0, linit, 50);
+
+x = s(:,1);
+
+p = 0.1:0.1:0.9;
+STPs = cell(1, length(p));
+for i=1:length(p)
+    STPs{i} = STP(x, 2, 500, p(i));
+end
+
+deltats = 0:1:500;
+for j=1:length(p)
+    hold on
+    plot(deltats, STPs{j}, 'LineWidth',2) 
+    hold off
+end
+axis tight
+xlabel('Separation in time \Delta t')
+ylabel('Separation in space')
+% legend('0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9')
