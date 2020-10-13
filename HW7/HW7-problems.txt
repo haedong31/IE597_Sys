@@ -1,0 +1,9 @@
+Wavelet Transformation
+
+(1) Please read materials covered for wavelet and the review paper on "Wavelet transforms and the ECG: a review"
+
+(2) Please generate stationary and nonstationary sinusoids as in slides #10, #11, then perform FFT and IFFT transformations
+
+(3) Please replicate the CWT results in slide #22
+
+(4) Please replicate the DWT threshold denoising results in slide #52 and #53 (Haar and Coif30)
