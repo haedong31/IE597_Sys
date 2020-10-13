@@ -1,12 +1,25 @@
 # folders
-/GaussianProcess-Tutorial-codes/
+/Module1-Syllabus/
+/Module2-Scientific Writing and Presentation/
+/Module3-Nonlinear Dynamics/
+/Module4-Statistical Modeling/
+/Module5-Gaussian Process/
+/Module6-Wavelet Analysis/
+/gpml-matlab-master/
+/HW6/example/
+/HW6/figures/
+/HW6/GaussianProcess-Tutorial-codes/
 
 # files
 *.docx
-*.zip
+*.doc
+*.pptx
+*.pdf
 *.png
+*.zip
 **.Rhistory
 **.DS_Store
+**Hankang.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
