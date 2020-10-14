@@ -7,8 +7,9 @@
 /Module6-Wavelet Analysis/
 /gpml-matlab-master/
 /HW6/example/
-/HW6/figures/
 /HW6/GaussianProcess-Tutorial-codes/
+**/figures/
+**/examples/
 
 # files
 *.docx
@@ -19,7 +20,11 @@
 *.zip
 **.Rhistory
 **.DS_Store
+**scratch.txt
+**example.m
+**example.py
 **Hankang.py
+/HW6/license.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
