@@ -32,6 +32,8 @@ title('50 Hz')
 xlabel('Time (s)')
 
 %% slide 9
+close all
+
 % stationary
 x4 = x1 + x2+ x3;
 
@@ -40,6 +42,16 @@ cidx1 = find(t == 0.3);
 cidx2 = find(t == 0.6);
 
 x5 = [x1(1:cidx1), x2(cidx1+1:cidx2), x3(cidx2+1:end)];
+
+figure(1)
+plot(t, x4)
+axis tight
+xlabel('Time (s)')
+
+figure(2)
+plot(t, x5)
+axis tight
+xlabel('Time (s)')
 
 %% FFT to stationary signal (x4)
 X4 = fft(x4);
@@ -60,7 +72,7 @@ y4 = ifft(X4);
 subplot(3, 1, 1)
 plot(t, x4)
 axis tight
-title('A signal with three frequency components')
+title('x_4')
 xlabel('Time (s)')
 
 subplot(3, 1, 2)
@@ -72,7 +84,7 @@ ylabel('Normalized amplitude')
 
 subplot(3, 1, 3)
 plot(t, y4)
-title('Inverse FFT')
+title('Reconstructed x_4 using inverse FFT')
 xlabel('Time (s)')
 
 %% FFT to non-stationary signal (x5)
@@ -94,7 +106,7 @@ y5 = ifft(X5);
 subplot(3, 1, 1)
 plot(t, x5)
 axis tight
-title('A signal with three frequency component at varying times')
+title('x_5')
 xlabel('Time (s)')
 
 subplot(3, 1, 2)
@@ -106,5 +118,5 @@ ylabel('Normalized amplitude')
 
 subplot(3, 1, 3)
 plot(t, y5)
-title('Inverse FFT')
+title('Reconstructed x_5 using inverse FFT')
 xlabel('Time (s)')
