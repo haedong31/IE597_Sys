@@ -17,10 +17,7 @@ for i=1:length(ko_dir)
         fprintf(1, 'Error idetifier: %s \n', ME.identifier);
         fprintf(2, 'Error message: %s \n', ME.message);
    end
-   t = df.Time_ms_;
-   
-   [~, end_idx] = min(abs(t-25*1000));
-   ko_trc{i} = downsample(df(1:end_idx, :), 10);
+   ko_trc{i} = downsample(df, 100);
 end
 
 wt_trc = cell(1, length(wt_dir));
@@ -32,13 +29,10 @@ for i=1:length(wt_dir)
         fprintf(1, 'Error idetifier: %s \n', ME.identifier);
         fprintf(2, 'Error message: %s \n', ME.message);
     end
-    t = df.Time_ms_;
-    
-    [~, end_idx] = min(abs(t-25*1000));
-    wt_trc{i} = downsample(df(1:end_idx, :), 10);
+    wt_trc{i} = downsample(df, 100);
 end
 
-%% visualization 1; raw traces
+%% visualization; raw traces
 for i=1:35
     df = ko_trc{i};
     figure(1)
@@ -52,3 +46,51 @@ for i=1:35
         plot(df.Time_ms_, df.Trace)
     hold off
 end
+
+%% paste signals
+time_step = 0.001;
+
+% KO signals
+ko_pasteT = [];
+ko_pasteI = [];
+
+t = ko_trc{1}.Time_ms_;
+N = t(end);
+ko_pasteT = [ko_pasteT; t];
+ko_pasteI = [ko_pasteI; ko_trc{1}.Trace];
+
+for i=2:length(ko_trc)
+    t = ko_trc{i}.Time_ms_;
+    newT = t + N + (i-1)*time_step;
+    
+    ko_pasteT = [ko_pasteT; newT];
+    ko_pasteI = [ko_pasteI; ko_trc{i}.Trace];
+    
+    N = N + t(end);
+end
+ko_paste_trc = table(ko_pasteT, ko_pasteI, 'VariableNames',{'Time','Current'});
+
+% WT signals
+wt_pasteT = [];
+wt_pasteI = [];
+
+t = wt_trc{1}.Time_ms_;
+N = t(end);
+wt_pasteT = [wt_pasteT; t];
+wt_pasteI = [wt_pasteI; wt_trc{1}.Trace];
+
+for i=2:length(wt_trc)
+    t = wt_trc{i}.Time_ms_;
+    newT = t + N +(i-1)*time_step;
+
+    wt_pasteT = [wt_pasteT; newT];
+    wt_pasteI = [wt_pasteI; wt_trc{i}.Trace];
+    
+    N = N + t(end);
+end
+wt_paste_trc = table(wt_pasteT, wt_pasteI, 'VariableNames',{'Time','Current'});
+
+%% save
+save('downsampled.mat', 'ko_trc','wt_trc')
+save('pasted.mat', 'ko_paste_trc','wt_paste_trc')
+
