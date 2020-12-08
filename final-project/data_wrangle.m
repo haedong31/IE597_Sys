@@ -90,7 +90,7 @@ for i=2:length(wt_trc)
     
     N = N + t(end);
 end
-wt_paste_trc = table(wt_pasteT, wt_pasteI, 'Var iableNames',{'Time','Current'});
+wt_paste_trc = table(wt_pasteT, wt_pasteI, 'VariableNames',{'Time','Current'});
 
 %% save
 save('downsampled2.mat', 'ko_trc','wt_trc')
