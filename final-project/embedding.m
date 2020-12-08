@@ -111,10 +111,61 @@ save('FNN.mat', 'ko_fnn','ko_dim','wt_fnn','wt_dim')
 new_ko_trc = cell(1, len_ko_trc);
 new_wt_trc = cell(1, len_wt_trc);
 
-for i=1:len_ko_trc
-   f 
-end
+% KO group
+trc = ko_trc{1};
+x = trc.Trace;
 
-for i=1:len_wt_trc
-    f
+[embedX, ~] = time_delay_embed(x, ko_tau(i), 3);
+
+figure(1)
+plot3(embedX(:, 1), embedX(:, 2), embedX(:, 3), '-o')
+grid on
+xlabel('x(t)')
+ylabel('x(t+\tau)')
+zlabel('x(t+2\tau)')
+
+hold on
+for i=2:len_ko_trc
+    trc = ko_trc{i};
+    x = trc.Trace;
+
+    [embedX, ~] = time_delay_embed(x, ko_tau(i), 3);
+    
+%     plot3(embedX(:, 1), embedX(:, 2), embedX(:, 3), '-o', 'Color','b', 'MarkerFaceColor','#D9FFFF')
+    hold on
+        plot3(embedX(:, 1), embedX(:, 2), embedX(:, 3), '-o')
+    hold off
+    
 end
+hold off
+axis tight
+
+% WT group
+trc = wt_trc{1};
+x = trc.Trace;
+
+[embedX, ~] = time_delay_embed(x, wt_tau(i), 3);
+
+figure(2)
+plot3(embedX(:, 1), embedX(:, 2), embedX(:, 3), '-o')
+grid on
+xlabel('x(t)')
+ylabel('x(t+\tau)')
+zlabel('x(t+2\tau)')
+
+hold on
+for i=2:len_wt_trc
+    trc = wt_trc{i};
+    x = trc.Trace;
+
+    [embedX, ~] = time_delay_embed(x, wt_tau(i), 3);
+    
+    hold on
+        plot3(embedX(:, 1), embedX(:, 2), embedX(:, 3), '-o')
+    hold off
+    
+end
+hold off
+axis tight
+
+%% embedding according to FNN criteria
