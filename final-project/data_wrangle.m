@@ -8,6 +8,8 @@ wt_base_path = './data/WT-traces-25s/';
 ko_dir = dir(strcat(ko_base_path, '*.xlsx'));
 wt_dir = dir(strcat(wt_base_path, '*.xlsx'));
 
+downsample_rate = 10;
+
 ko_trc = cell(1, length(ko_dir));
 for i=1:length(ko_dir)
    p = strcat(ko_base_path, ko_dir(i).name);
@@ -17,7 +19,7 @@ for i=1:length(ko_dir)
         fprintf(1, 'Error idetifier: %s \n', ME.identifier);
         fprintf(2, 'Error message: %s \n', ME.message);
    end
-   ko_trc{i} = downsample(df, 100);
+   ko_trc{i} = downsample(df, downsample_rate);
 end
 
 wt_trc = cell(1, length(wt_dir));
@@ -29,7 +31,7 @@ for i=1:length(wt_dir)
         fprintf(1, 'Error idetifier: %s \n', ME.identifier);
         fprintf(2, 'Error message: %s \n', ME.message);
     end
-    wt_trc{i} = downsample(df, 100);
+    wt_trc{i} = downsample(df, downsample_rate);
 end
 
 %% visualization; raw traces
@@ -88,9 +90,9 @@ for i=2:length(wt_trc)
     
     N = N + t(end);
 end
-wt_paste_trc = table(wt_pasteT, wt_pasteI, 'VariableNames',{'Time','Current'});
+wt_paste_trc = table(wt_pasteT, wt_pasteI, 'Var iableNames',{'Time','Current'});
 
 %% save
-save('downsampled.mat', 'ko_trc','wt_trc')
+save('downsampled2.mat', 'ko_trc','wt_trc')
 save('pasted.mat', 'ko_paste_trc','wt_paste_trc')
 
