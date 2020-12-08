@@ -103,7 +103,6 @@ for i=1:len_wt_trc
 end
 
 %% save intermediate results
-save('embedding_result1.mat')
 save('MI.mat', 'ko_mi','ko_tau','wt_mi','wt_tau')
 save('FNN.mat', 'ko_fnn','ko_dim','wt_fnn','wt_dim')
 
@@ -169,3 +168,26 @@ hold off
 axis tight
 
 %% embedding according to FNN criteria
+% KO group
+ko_embed_mx = cell(len_ko_trc, 1);
+for i=1:len_ko_trc
+    trc = ko_trc{i};
+    x = trc.Trace;
+
+    [embedX, ~] = time_delay_embed(x, ko_tau(i), ko_dim(i));
+    ko_embed_mx{i} = embedX;
+end
+
+% WT group
+wt_embed_mx = cell(len_wt_trc, 1);
+for i=1:len_wt_trc
+    trc = wt_trc{i};
+    x = trc.Trace;
+
+    [embedX, ~] = time_delay_embed(x, wt_tau(i), wt_dim(i));
+    wt_embed_mx{i} = embedX;
+end
+
+%% save
+save('embedding.mat')
+save('embed_matrix', 'ko_embed_mx','wt_embed_mx')
