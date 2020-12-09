@@ -17,7 +17,7 @@ s = trc.Trace;
 [embedS, xidx] = time_delay_embed(s, tau, 3);
 
 figure('Position',[100, 100, 550, 700])
-for i = 1:length(xidx)
+for i = 1:1500
     % raw trace
     x = [t(i), t(i+tau), t(i+2*tau)];
     y = [s(i), s(i+tau), s(i+2*tau)];
@@ -25,8 +25,7 @@ for i = 1:length(xidx)
     subplot(2, 1, 1)
     plot(t, s)
     hold on
-        plot(x, y, 'o', 'MarkerFaceColor','red')        
-        pause(0.01)
+        plot(x, y, 'o', 'MarkerFaceColor','red')
     hold off
     
     % embedded
@@ -34,8 +33,8 @@ for i = 1:length(xidx)
     plot3(embedS(:, 1), embedS(:, 2), embedS(:, 3))
     hold on
         plot3(embedS(i, 1), embedS(i, 2), embedS(i, 3), 'o', 'MarkerFaceColor','red')
-        drawnow
         view(3)
+        F(i) = getframe(gcf);
     hold off
 end
 
@@ -59,7 +58,6 @@ for i = 1:length(xidx)
     plot(t, s)
     hold on
         plot(x, y, 'o', 'MarkerFaceColor','red')        
-        pause(0.01)
     hold off
     
     % embedded
@@ -67,7 +65,15 @@ for i = 1:length(xidx)
     plot3(embedS(:, 1), embedS(:, 2), embedS(:, 3))
     hold on
         plot3(embedS(i, 1), embedS(i, 2), embedS(i, 3), 'o', 'MarkerFaceColor','red')
-        drawnow
         view(3)
+        drawnow
     hold off
 end
+
+%% video recording
+v = VideoWriter('embedding.mp4', 'MPEG-4');
+v.FrameRate = 10;
+
+open(v)
+writeVideo(v, F)
+close(v)

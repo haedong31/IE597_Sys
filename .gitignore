@@ -9,6 +9,7 @@
 /HW6/example/
 /HW6/GaussianProcess-Tutorial-codes/
 /final-project/data/
+/final-project/recurrence_matrix/
 **/figures/
 **/examples/
 
@@ -26,6 +27,7 @@
 **example.py
 **Hankang.py
 /HW6/license.txt
+/final-project/recurrence_mx.mat
 
 ## Python -----
 # Byte-compiled / optimized / DLL files
