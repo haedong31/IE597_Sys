@@ -12,6 +12,7 @@
 /final-project/recurrence_matrix/
 **/figures/
 **/examples/
+**/reference
 
 # files
 *.docx

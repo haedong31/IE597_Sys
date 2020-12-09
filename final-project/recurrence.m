@@ -54,5 +54,48 @@ for i = 1:len_wt_trc
     writematrix(wt_rec_mx{i}, p)
 end
 
-%% visualization
+%% visualization - KO
+clc
+close all
+clear variables
 
+load('recurrence_mx.mat', 'ko_rec_mx')
+
+for i = 1:length(ko_rec_mx)
+    p = sprintf('./recurrence_matrix/ko%i.png', i);
+    
+    rec_mx = ko_rec_mx{i};
+     
+    figure('Position',[100, 100, 700, 700])
+    imagesc(rec_mx)
+    colormap jet
+    axis image
+    get(gcf, 'CurrentAxes')
+    set(gca, 'YDir','normal')
+    set(gca, 'Visible', 'off')
+    
+    saveas(gcf, p)
+end
+
+%% visualization - WT
+clc
+close all
+clear variables
+
+load('recurrence_mx.mat', 'wt_rec_mx')
+
+for i = 1:length(wt_rec_mx)
+    p = sprintf('./recurrence_matrix/wt%i.png', i);
+    
+    rec_mx = wt_rec_mx{i};
+     
+    figure('Position',[100, 100, 700, 700])
+    imagesc(rec_mx)
+    colormap jet
+    axis image
+    get(gcf, 'CurrentAxes')
+    set(gca, 'YDir','normal')
+    set(gca, 'Visible', 'off')
+    
+    saveas(gcf, p)
+end
