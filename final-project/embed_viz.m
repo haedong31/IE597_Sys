@@ -49,7 +49,7 @@ s = trc.Trace;
 [embedS, xidx] = time_delay_embed(s, tau, 3);
 
 figure('Position',[100, 100, 550, 700])
-for i = 1:length(xidx)
+for i = 1:1500
     % raw trace
     x = [t(i), t(i+tau), t(i+2*tau)];
     y = [s(i), s(i+tau), s(i+2*tau)];
@@ -66,7 +66,7 @@ for i = 1:length(xidx)
     hold on
         plot3(embedS(i, 1), embedS(i, 2), embedS(i, 3), 'o', 'MarkerFaceColor','red')
         view(3)
-        drawnow
+        F(i) = getframe(gcf);
     hold off
 end
 

@@ -8,7 +8,7 @@ load('downsampled.mat')
 len_ko_trc = length(ko_trc);
 len_wt_trc = length(wt_trc);
 
-% choose tau
+%% choose tau
 % 1 index step = 5 ms
 tau = 1:100;
 len_tau = length(tau);
@@ -114,7 +114,7 @@ new_wt_trc = cell(1, len_wt_trc);
 trc = ko_trc{1};
 x = trc.Trace;
 
-[embedX, ~] = time_delay_embed(x, ko_tau(i), 3);
+[embedX, ~] = time_delay_embed(x, ko_tau(1), 3);
 
 figure(1)
 plot3(embedX(:, 1), embedX(:, 2), embedX(:, 3), '-o')
@@ -143,7 +143,7 @@ axis tight
 trc = wt_trc{1};
 x = trc.Trace;
 
-[embedX, ~] = time_delay_embed(x, wt_tau(i), 3);
+[embedX, ~] = time_delay_embed(x, wt_tau(1), 3);
 
 figure(2)
 plot3(embedX(:, 1), embedX(:, 2), embedX(:, 3), '-o')
